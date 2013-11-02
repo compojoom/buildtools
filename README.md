@@ -1,4 +1,4 @@
-Compojoom Build Tools
+# Compojoom Build Tools
 
 Compojoom Build Tools is an extension builder for Joomla!. It contains the common build files of the
 compojoom extensions, but can also be used for building your own Joomla! extensions.
@@ -6,7 +6,7 @@ Compojoom Build Tools is NOT a standalone builder, it needs an extension specifi
 
 Feel free to fork and contribute!
 
-COPYRIGHT AND DISCLAIMER
+## COPYRIGHT AND DISCLAIMER
 Compojoom Build Tools - Extension builder for Joomla! Copyright (c) 2008-2013 Compojoom.com
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the
