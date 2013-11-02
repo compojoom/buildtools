@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Generic helper
+-->
+
+<project name="helper" default="nothing">
+
+	<echo message="${phing.dir}" />
+	<taskdef name="linkSource" classname="phingext.linkSource" classpath="${phing.dir.helper}"/>
+	<taskdef name="linkJoomla" classname="phingext.linkJoomla" classpath="${phing.dir.helper}"/>
+
+	<target name="nothing">
+
+	</target>
+
+	<target name="symlinker-source">
+		<linkSource source="${phing.dir}/../source" target="${target}" />
+	</target>
+
+	<target name="symlinker-joomla">
+		<linkJoomla source="${source}" target="${target}" />
+	</target>
+
+</project>
