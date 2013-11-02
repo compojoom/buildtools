@@ -1,4 +1,5 @@
 Changelog
 =========
 
++ added an option to read a symlinks template
 - initial release

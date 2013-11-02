@@ -86,6 +86,24 @@ class LinkSource extends Task
 			$it->next();
 		}
 
+		$file = $source . '/../builds/templates/symlinks.php';
+
+		if (file_exists($file))
+		{
+			require_once $file;
+
+			foreach ($symlinks as $symlink)
+			{
+				echo $source . $symlink;
+				$sym = new BuildHelperSymlinker($source . $symlink, $target);
+
+				while ($sym->valid())
+				{
+					$sym->next();
+				}
+			}
+		}
+
 		return true;
 	}
 }
