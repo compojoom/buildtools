@@ -89,12 +89,12 @@ class LinkSource extends Task
 
 			foreach ($symlinks as $key => $value)
 			{
-				if (!file_exists($target . $value))
+				if (!file_exists($source . $value))
 				{
-					mkdir($target . $value, 0755, true);
+					mkdir($source . $value, 0755, true);
 				}
 
-				$sym = new BuildHelperSymlinker($source . $key, $target . $value);
+				$sym = new BuildHelperSymlinker($source . $key, $source . $value);
 
 				while ($sym->valid())
 				{
