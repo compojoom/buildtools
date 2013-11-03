@@ -79,23 +79,22 @@ class LinkSource extends Task
 		$source = $this->getSource();
 		$target = $this->getTarget();
 
-		$it = new BuildHelperSymlinker($source, $target);
-
-		while ($it->valid())
-		{
-			$it->next();
-		}
 
 		$file = $source . '/../builds/templates/symlinks.php';
 
+		// If we have custom symlink paths, let us symlink them first
 		if (file_exists($file))
 		{
 			require_once $file;
 
-			foreach ($symlinks as $symlink)
+			foreach ($symlinks as $key => $value)
 			{
-				echo $source . $symlink;
-				$sym = new BuildHelperSymlinker($source . $symlink, $target);
+				if (!file_exists($target . $value))
+				{
+					mkdir($target . $value, 0755, true);
+				}
+
+				$sym = new BuildHelperSymlinker($source . $key, $target . $value);
 
 				while ($sym->valid())
 				{
@@ -103,6 +102,15 @@ class LinkSource extends Task
 				}
 			}
 		}
+
+		$it = new BuildHelperSymlinker($source, $target);
+
+		while ($it->valid())
+		{
+			$it->next();
+		}
+
+
 
 		return true;
 	}
