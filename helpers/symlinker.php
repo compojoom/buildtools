@@ -42,11 +42,13 @@ class BuildHelperSymlinker extends RecursiveIteratorIterator
 	 *
 	 * @param   Traversable  $srcdir  - the source directory
 	 * @param   string       $tgtdir  - the target directory
+	 * @param   string       $type    - symlink or hard link?
 	 */
-	public function __construct($srcdir, $tgtdir)
+	public function __construct($srcdir, $tgtdir, $type = 'symlink')
 	{
 		$this->_srcdir = $srcdir;
 		$this->_tgtdir = $tgtdir;
+		$this->type = $type;
 
 		parent::__construct(new RecursiveDirectoryIterator($this->_srcdir));
 	}
@@ -70,14 +72,6 @@ class BuildHelperSymlinker extends RecursiveIteratorIterator
 		$tgt = str_replace($this->_srcdir, '', $src);
 		$tgt = str_replace('\site', '', $tgt);
 		$tgt = $this->_tgtdir . $tgt;
-
-		if (is_link($tgt))
-		{
-			if (is_file($tgt))
-			{
-				unlink($tgt);
-			}
-		}
 
 		if (!is_dir($tgt))
 		{
@@ -109,9 +103,19 @@ class BuildHelperSymlinker extends RecursiveIteratorIterator
 				{
 					$opts = '/D';
 				}
+				else
+				{
+					// We need to create a hard link if we are dealing with files
+					if ($this->type == 'link')
+					{
+						$opts = '/H';
+					}
+				}
 
+				$src = realpath($src);
 				$cmd = "mklink $opts \"$tgt\" \"$src\"";
 				$result = exec($cmd);
+
 				echo ($result == '' ? 'ERROR: ' : '') . "$src\n\t--> $tgt\n";
 			}
 			else
