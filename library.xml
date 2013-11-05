@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Generic build for joomla libraries
+    ${library} should be the library name
+-->
+
+<project name="library" default="build-library">
+
+
+	<target name="build-library-sources">
+		<echo message="${dirs.source}\media\lib_${library}" />
+		<available file="${dirs.source}\media\lib_${library}" followSymlinks="true"
+		           type="dir" property="library.media.exist" value="yes"/>
+		<available file="${dirs.source}\language\en-GB\en-GB.lib_${library}.ini" followSymlinks="true"
+		           type="file" property="library.language.exist" value="yes"/>
+
+		<!-- Generate XML file -->
+		<copy file="${dirs.source}/libraries/${library}/${library}.xml"
+		      tofile="${destination.dir}/${library}.xml" overwrite="true">
+			<filterchain>
+				<replacetokens begintoken="@@" endtoken="@@">
+					<token key="DATE" value="${build.date}" />
+					<token key="VERSION" value="${build.version}" />
+				</replacetokens>
+			</filterchain>
+		</copy>
+
+		<copy todir="${destination.dir}/libraries/${library}/">
+			<fileset dir="${dirs.source}/libraries/${library}/" expandsymboliclinks="true">
+				<include name="**/*.*"/>
+			</fileset>
+		</copy>
+
+		<if>
+			<isset property="library.language.exist"/>
+			<then>
+				<echo message="language #########################!" />
+				<copy todir="${destination.dir}/language/">
+					<fileset dir="${dirs.source}/language/" expandsymboliclinks="true">
+						<include name="**/*.lib_${library}.**"/>
+					</fileset>
+				</copy>
+			</then>
+		</if>
+
+		<if>
+			<isset property="library.media.exist"/>
+			<then>
+				<echo message="media #########################!" />
+				<copy todir="${destination.dir}/media/lib_${library}">
+					<fileset dir="${dirs.source}/media/lib_${library}" expandsymboliclinks="true">
+						<include name="**/*.*"/>
+					</fileset>
+				</copy>
+			</then>
+		</if>
+
+		<extfile file="${destination.dir}/${library}.xml"
+		         sourceDir="${dirs.source}"
+		         component="lib_${library}"
+			/>
+
+		<!--<explode propertyName="pluginType" string="${plugin}" delimiter="_" key="1"/>-->
+		<!--<explode propertyName="pluginName" string="${plugin}" delimiter="_" key="2"/>-->
+
+		<!--&lt;!&ndash;do we have a media folder?&ndash;&gt;-->
+		<!--<available file="${dirs.source}\media\${plugin}"-->
+		           <!--type="dir" property="mod.media.exist" value="yes"/>-->
+
+		<!--<if>-->
+			<!--<equals arg1="${adminLang.exist}" arg2="1"/>-->
+			<!--<then>-->
+				<!--<copy todir="${destination.dir}/plugins/${pluginType}/${pluginName}/administrator/language/">-->
+					<!--<fileset dir="${dirs.source}/administrator/language/">-->
+						<!--<include name="**/*.${plugin}.**"/>-->
+					<!--</fileset>-->
+				<!--</copy>-->
+			<!--</then>-->
+		<!--</if>-->
+
+		<!--<copy todir="${destination.dir}/plugins/${pluginType}/${pluginName}">-->
+			<!--<fileset dir="${dirs.source}/plugins/${pluginType}/${pluginName}" includes="**/*.*"/>-->
+		<!--</copy>-->
+
+		<!--<if>-->
+			<!--<equals arg1="${mod.media.exist}" arg2="1"/>-->
+			<!--<then>-->
+				<!--<copy todir="${destination.dir}/modules/${pluginType}/${pluginName}/media/${plugin}">-->
+					<!--<fileset dir="${dirs.source}/media/${plugin}">-->
+						<!--<include name="**/*.*"/>-->
+						<!--<exclude name="kml/*.*"/>-->
+					<!--</fileset>-->
+				<!--</copy>-->
+			<!--</then>-->
+		<!--</if>-->
+
+		<!--<copy file="${dirs.source}/plugins/${pluginType}/${pluginName}/${pluginName}.xml"-->
+		      <!--tofile="${destination.dir}/plugins/${pluginType}/${pluginName}/${pluginName}.xml" overwrite="true">-->
+
+			<!--<filterchain>-->
+
+				<!--<replacetokens begintoken="@@" endtoken="@@">-->
+					<!--<token key="DATE" value="${build.date}"/>-->
+					<!--<token key="VERSION" value="${build.version}"/>-->
+					<!--<token key="PLUGINNAME" value="${plugin}"/>-->
+				<!--</replacetokens>-->
+			<!--</filterchain>-->
+		<!--</copy>-->
+
+
+		<!--<extfile file="${destination.dir}/plugins/${pluginType}/${pluginName}/${pluginName}.xml"-->
+		         <!--sourceDir="${destination.dir}/plugins/${pluginType}/${pluginName}"-->
+		         <!--component="${plugin}"-->
+				<!--/>-->
+
+	</target>
+
+</project>

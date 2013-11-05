@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Generic build plugin
-    ${plugin} should be mod_something...
+    ${plugin} should be plg_system_something
 -->
 
 <project name="plugin" default="buildPlugin">
