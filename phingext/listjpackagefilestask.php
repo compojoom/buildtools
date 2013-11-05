@@ -28,6 +28,20 @@ class ListJPackageFilesTask extends Task
 	public $file;
 
 	/**
+	 * The source directory path
+	 *
+	 * @var
+	 */
+	public $sourceDir;
+
+	/**
+	 * The component name
+	 *
+	 * @var
+	 */
+	public $component;
+
+	/**
 	 * Sets the file name
 	 *
 	 * @param   string  $str  - path to the xml file
@@ -133,6 +147,14 @@ class ListJPackageFilesTask extends Task
 			);
 		}
 
+		if (preg_match('/##LIBRARYFILES##/', $content))
+		{
+			$content = preg_replace(
+				'/##LIBRARYFILES##/',
+				call_user_func('self::findLibraryPackageFiles', false), $content
+			);
+		}
+
 		file_put_contents($this->file, $content);
 	}
 
@@ -145,7 +167,6 @@ class ListJPackageFilesTask extends Task
 	 */
 	public function languageFiles($admin = false)
 	{
-		$this->sourceDir = $this->sourceDir;
 		$languageFolder = $this->sourceDir . '/language';
 
 		if ($admin)
@@ -241,6 +262,48 @@ class ListJPackageFilesTask extends Task
 		else
 		{
 			echo 'Folder ' . $componentFolder . ' doesn\'t exist';
+		}
+
+		return implode("\n", $list);
+	}
+
+
+	/**
+	 * Finds the library package files
+	 *
+	 * @return string
+	 */
+	public function findLibraryPackageFiles()
+	{
+		$nameParts = explode('_', $this->component);
+		$library = $nameParts[1];
+
+		$path = $this->sourceDir . '/libraries/' . $library;
+		$list = array();
+
+		if (file_exists($path))
+		{
+			$dir = new DirectoryIterator($path);
+
+			foreach ($dir as $element)
+			{
+				if (!$element->isDot())
+				{
+					if ($element->isDir())
+					{
+						$list[] = '<folder>' . $element->getFileName() . '</folder>';
+					}
+
+					if ($element->isFile())
+					{
+						$list[] = '<file>' . $element->getFileName() . '</file>';
+					}
+				}
+			}
+		}
+		else
+		{
+			echo 'Folder for library' . $library . ' doesn\'t exist';
 		}
 
 		return implode("\n", $list);
