@@ -38,6 +38,7 @@ $createFolder = array(
 	'\plugins\quickicon',
 	'\plugins\search',
 	'\plugins\system',
+	'\plugins\twofactorauth',
 	'\plugins\user',
 	'\templates',
 );
@@ -72,6 +73,7 @@ $symLinks = array(
 	'\plugins\quickicon',
 	'\plugins\search',
 	'\plugins\system',
+	'\plugins\twofactorauth',
 	'\plugins\user',
 	'\templates',
 );

@@ -5,7 +5,7 @@
 -->
 
 <project name="library" default="build-library">
-
+	<property file="../../lib_compojoom/builds/build.properties" />
 
 	<target name="build-library-sources">
 		<echo message="${dirs.source}\media\lib_${library}" />
@@ -20,7 +20,7 @@
 			<filterchain>
 				<replacetokens begintoken="@@" endtoken="@@">
 					<token key="DATE" value="${build.date}" />
-					<token key="VERSION" value="${build.version}" />
+					<token key="VERSION" value="${library.version}" />
 				</replacetokens>
 			</filterchain>
 		</copy>
