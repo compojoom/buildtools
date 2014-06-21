@@ -15,6 +15,15 @@
 		</then>
 	</if>
 
+
+	<target name="buildModuleZip" depends="buildModule">
+
+		<echo message="${destination.dir}${admin_folder}/modules/${module}-${build.version}" />
+		<zip destfile="${destination.dir}/${module}-${build.version}.zip"
+		     basedir="${destination.dir}${admin_folder}/modules/${module}/"/>
+
+	</target>
+
 	<target name="buildModule">
 
 		<!--do we have a media folder?-->
