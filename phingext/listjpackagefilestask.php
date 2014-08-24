@@ -184,7 +184,7 @@ class ListJPackageFilesTask extends Task
 
 			foreach ($dir as $element)
 			{
-				if (!$element->isDot())
+				if (!$element->isDot() && substr($element, 0, 1) != ".")
 				{
 					if ($element->isDir())
 					{
@@ -245,7 +245,7 @@ class ListJPackageFilesTask extends Task
 
 			foreach ($dir as $element)
 			{
-				if (!$element->isDot())
+				if (!$element->isDot() && substr($element, 0, 1) != ".")
 				{
 					if ($element->isDir())
 					{
@@ -287,7 +287,7 @@ class ListJPackageFilesTask extends Task
 
 			foreach ($dir as $element)
 			{
-				if (!$element->isDot())
+				if (!$element->isDot() && substr($element, 0, 1) != ".")
 				{
 					if ($element->isDir())
 					{
@@ -363,7 +363,7 @@ class ListJPackageFilesTask extends Task
 
 			foreach ($dir as $element)
 			{
-				if (!$element->isDot())
+				if (!$element->isDot() && substr($element, 0, 1) != ".")
 				{
 					if ($element->isDir())
 					{
@@ -450,7 +450,7 @@ class ListJPackageFilesTask extends Task
 
 			foreach ($dir as $element)
 			{
-				if (!$element->isDot())
+				if (!$element->isDot() && substr($element, 0, 1) != ".")
 				{
 					if ($element->isDir())
 					{
