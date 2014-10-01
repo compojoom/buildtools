@@ -15,7 +15,7 @@
 
 	<target name="buildPlugin">
 		<explode propertyName="pluginType" string="${plugin}" delimiter="_" key="1"/>
-		<explode propertyName="pluginName" string="${plugin}" delimiter="_" key="2"/>
+		<explode propertyName="pluginName" string="${plugin}" delimiter="_" key="rest"/>
 
 		<!--do we have a media folder?-->
 		<available file="${dirs.source}\media\${plugin}"

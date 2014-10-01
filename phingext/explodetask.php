@@ -93,7 +93,24 @@ class ExplodeTask extends Task
 
 		if ($value !== null)
 		{
-			$this->project->setUserProperty($this->propertyName, $value[$this->key]);
+			if ($this->key == 'rest')
+			{
+				if (count($value) > 2)
+				{
+					// Removes plg
+					array_shift($value);
+
+					// Removes plugin type
+					array_shift($value);
+					$name = implode($this->delimiter, $value);
+				}
+			}
+			else
+			{
+				$name = $value[$this->key];
+			}
+
+			$this->project->setUserProperty($this->propertyName, $name);
 		}
 	}
 }
