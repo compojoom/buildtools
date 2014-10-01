@@ -94,7 +94,7 @@ class LinkSource extends Task
 					mkdir($source . $value, 0755, true);
 				}
 
-				$sym = new BuildHelperSymlinker($source . $key, $source . $value, 'link');
+				$sym = new BuildHelperSymlinker($source . $key, $target . $value);
 
 				while ($sym->valid())
 				{

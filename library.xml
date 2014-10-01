@@ -8,14 +8,14 @@
 	<property file="../../lib_compojoom/builds/build.properties" />
 
 	<target name="build-library-sources">
-		<echo message="${dirs.source}\media\lib_${library}" />
-		<available file="${dirs.source}\media\lib_${library}" followSymlinks="true"
+		<echo message="${lib.source}\media\lib_${library}" />
+		<available file="${lib.source}\media\lib_${library}" followSymlinks="true"
 		           type="dir" property="library.media.exist" value="yes"/>
-		<available file="${dirs.source}\language\en-GB\en-GB.lib_${library}.ini" followSymlinks="true"
+		<available file="${lib.source}\language\en-GB\en-GB.lib_${library}.ini" followSymlinks="true"
 		           type="file" property="library.language.exist" value="yes"/>
 
 		<!-- Generate XML file -->
-		<copy file="${dirs.source}/libraries/${library}/${library}.xml"
+		<copy file="${lib.source}/libraries/${library}/${library}.xml"
 		      tofile="${destination.dir}/${library}.xml" overwrite="true">
 			<filterchain>
 				<replacetokens begintoken="@@" endtoken="@@">
@@ -26,7 +26,7 @@
 		</copy>
 
 		<copy todir="${destination.dir}/libraries/${library}/">
-			<fileset dir="${dirs.source}/libraries/${library}/" expandsymboliclinks="true">
+			<fileset dir="${lib.source}/libraries/${library}/" expandsymboliclinks="true">
 				<include name="**/*.*"/>
 			</fileset>
 		</copy>
@@ -36,7 +36,7 @@
 			<then>
 				<echo message="language #########################!" />
 				<copy todir="${destination.dir}/language/">
-					<fileset dir="${dirs.source}/language/" expandsymboliclinks="true">
+					<fileset dir="${lib.source}/language/" expandsymboliclinks="true">
 						<include name="**/*.lib_${library}.**"/>
 					</fileset>
 				</copy>
@@ -48,7 +48,7 @@
 			<then>
 				<echo message="media #########################!" />
 				<copy todir="${destination.dir}/media/lib_${library}">
-					<fileset dir="${dirs.source}/media/lib_${library}" expandsymboliclinks="true">
+					<fileset dir="${lib.source}/media/lib_${library}" expandsymboliclinks="true">
 						<include name="**/*.*"/>
 					</fileset>
 				</copy>
@@ -56,7 +56,7 @@
 		</if>
 
 		<extfile file="${destination.dir}/${library}.xml"
-		         sourceDir="${dirs.source}"
+		         sourceDir="${lib.source}"
 		         component="lib_${library}"
 			/>
 	</target>
