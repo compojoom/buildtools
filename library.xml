@@ -37,7 +37,7 @@
 				<echo message="language #########################!" />
 				<copy todir="${destination.dir}/language/">
 					<fileset dir="${lib.source}/language/" expandsymboliclinks="true">
-						<include name="**/*.lib_${library}.**"/>
+						<include name="**/en-GB.lib_${library}.**"/>
 					</fileset>
 				</copy>
 			</then>

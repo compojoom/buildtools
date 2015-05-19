@@ -26,7 +26,7 @@
 			<then>
 				<copy todir="${destination.dir}/plugins/${pluginType}/${pluginName}/administrator/language/">
 					<fileset dir="${dirs.source}/administrator/language/">
-						<include name="**/*.${plugin}.**"/>
+						<include name="**/en-GB.${plugin}.**"/>
 					</fileset>
 				</copy>
 			</then>

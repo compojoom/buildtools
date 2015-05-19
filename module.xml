@@ -35,7 +35,7 @@
 			<then>
 				<copy todir="${destination.dir}/administrator/modules/${module}/administrator/language/">
 					<fileset dir="${dirs.source}/administrator/language/">
-						<include name="**/*.${module}.**"/>
+						<include name="**/en-GB.${module}.**"/>
 					</fileset>
 				</copy>
 			</then>
@@ -44,10 +44,10 @@
 		<if>
 			<equals arg1="${frontendLang.exist}" arg2="1"/>
 			<then>
-
+				<echo message="**/en-GB.${module}.**" />
 				<copy todir="${destination.dir}/modules/${module}/language/">
 					<fileset dir="${dirs.source}/language/">
-						<include name="**/*.${module}.**"/>
+						<include name="**/en-GB.${module}.**"/>
 					</fileset>
 				</copy>
 			</then>

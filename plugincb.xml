@@ -10,13 +10,13 @@
 		<!--<explode propertyName="pluginType" string="${plugin}" delimiter="_" key="0" />-->
 		<explode propertyName="pluginName" string="${plugin}" delimiter="_" key="1"/>
 
-		<!--do we have a media folder?-->
+		<!--do we have a language folder?-->
 		<if>
 			<equals arg1="${adminLang.exist}" arg2="1"/>
 			<then>
 				<copy todir="${destination.dir}/components/com_comprofiler/plugin/user/${plugin}/administrator/language/">
 					<fileset dir="${dirs.source}/administrator/language/">
-						<include name="**/*.plg_${plugin}.**"/>
+						<include name="**/en-GB.plg_${pluginName}.**"/>
 					</fileset>
 				</copy>
 			</then>
